@@ -1,10 +1,10 @@
-const { Sequelize } = require("sequelize");
-require("dotenv").config();
+const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 let sequelize;
 
 // Verificar si el proyecto esta en producción
-if (`${process.env.DB_URI}`.includes("aws")) {
+if (`${process.env.DB_URI}`.includes('aws')) {
   sequelize = new Sequelize(`${process.env.DB_URI}`, {
     dialectOptions: {
       ssl: {
@@ -20,7 +20,7 @@ if (`${process.env.DB_URI}`.includes("aws")) {
 const ConnectDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Conection to Heroku DB is succesfull 💪!");
+    console.log('Conection to Heroku DB is succesfull 💪!');
   } catch (error) {
     console.log(error);
     process.exit(1);

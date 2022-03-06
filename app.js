@@ -1,8 +1,8 @@
-const express = require("express");
-const ExpressConfig = require("./config/express");
-const routes = require("./routes");
-const { log } = require("./utils/logger");
-const ConnectDB = require("./config/database");
+const express = require('express');
+const ExpressConfig = require('./config/express');
+const routes = require('./routes');
+const { log } = require('./utils/logger');
+const ConnectDB = require('./config/database');
 
 const app = express();
 
