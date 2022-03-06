@@ -1,7 +1,21 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-const sequelize = new Sequelize(`${process.env.DB_URI}`);
+let sequelize;
+
+// Verificar si el proyecto esta en producción
+if (`${process.env.DB_URI}`.includes("aws")) {
+  sequelize = new Sequelize(`${process.env.DB_URI}`, {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  });
+} else {
+  sequelize = new Sequelize(`${process.env.DB_URI}`);
+}
 
 const ConnectDB = async () => {
   try {
