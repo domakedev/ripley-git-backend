@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
+const setupModels = require('../config/setupModels');
 require('dotenv').config();
 
 let sequelize;
-
 // Verificar si el proyecto esta en producción
 if (`${process.env.DB_URI}`.includes('aws')) {
   sequelize = new Sequelize(`${process.env.DB_URI}`, {
@@ -16,17 +16,8 @@ if (`${process.env.DB_URI}`.includes('aws')) {
 } else {
   sequelize = new Sequelize(`${process.env.DB_URI}`);
 }
-
-const ConnectDB = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Conection to Heroku DB is succesfull 💪!');
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-};
+setupModels(sequelize);
 
 sequelize.sync();
 
-module.exports = ConnectDB;
+module.exports = sequelize;
